@@ -1,50 +1,52 @@
-﻿//Spinning Donut!
-using System;
+﻿using System;
 using System.Threading;
+
 class Program
 {
     static void Main()
     {
-        int width = 10;
-        int height =10;
+         Random randInt = new Random();
+        int width = 40;
+        int height = 20;
+
+        int cx = width / 2;
+        int cy = height / 2;
+        
+
         char[,] canvas = new char[height, width];
         Console.CursorVisible = false;
-        Random rnd = new Random();
+
         while (true)
         {
-            int rndInt = rnd.Next(1, 7);
-
+            int radius = randInt.Next(1, 7);
+            // Clear canvas
             for (int y = 0; y < height; y++)
-            {
                 for (int x = 0; x < width; x++)
-                {
                     canvas[y, x] = ' ';
-                }
-            }
-            
-            //Line Render
+
+            // Draw circle
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (x ==rndInt)
-                    {
+                    double dx = (x - cx) / 2.0;
+                    double dy = y - cy;
+                    double distance = Math.Sqrt(dx * dx + dy * dy);
+                    if (Math.Abs(distance - radius) < 0.5)
                         canvas[y, x] = '.';
-                    }
                 }
             }
 
-            //Canvas render
+            // Render to console
+            Console.SetCursorPosition(0, 0);
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
-                {
                     Console.Write(canvas[y, x]);
-                }
                 Console.WriteLine();
             }
-            Console.SetCursorPosition(0, 0);
-            Thread.Sleep(50);
+
+            Thread.Sleep(100);
         }
     }
 }
