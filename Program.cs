@@ -2,13 +2,11 @@
 using System.Text;
 using System.Threading;
 
-int width = 90;
-int height = 30;
-Console.SetWindowSize(width, height + 1);
-Console.SetBufferSize(width, height + 1);
+int width = Console.WindowWidth;
+int height = Console.WindowHeight;
 double K1 = 2.0;
-double r1 = 4;
-double r2 = 2;
+double r1 = 8;
+double r2 = 4;
 
 double thetaSpacing = 0.07;
 double phiSpacing = 0.02;
@@ -32,7 +30,7 @@ while (true)
             double z = r2 * Math.Sin(theta);
 
             int x_proj = (int)((width / 2) + K1 * x);
-            int y_proj = (int)(((height / 2) - K1 * y)/2);
+            int y_proj = (int)((height / 2) - K1 * y * 0.5);
 
             if (x_proj >= 0 && x_proj < width && y_proj >= 0 && y_proj < height)
             {
