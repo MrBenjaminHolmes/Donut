@@ -30,8 +30,13 @@ while (true)
             double y = (r1 + r2 * Math.Cos(theta)) * Math.Sin(phi);
             double z = r2 * Math.Sin(theta);
 
-            y = (y*Math.Cos(A)) - (z*Math.Sin(A));
-            z = (y * Math.Sin(A)) - (z * Math.Cos(A));
+            //X Rotation
+            //y = (y*Math.Cos(A)) - (z*Math.Sin(A));
+            //z = (y * Math.Sin(A)) + (z * Math.Cos(A));
+            //Y Rotation
+
+            x=(x*Math.Cos(A))+(z*Math.Sin(A));
+            z=(-x*Math.Sin(A))+(z*Math.Cos(A));
 
             int x_proj = (int)((width / 2) + K1 * x);
             int y_proj = (int)((height / 2) - K1 * y * 0.5);
@@ -58,8 +63,8 @@ while (true)
     Console.Write(sb.ToString());
 
     Thread.Sleep(100);
-    A += 00.5;
-    if (A > Math.Tau)
+    A += 0.1;
+    if (A >= Math.Tau)
     {
         A = 0;
     }
