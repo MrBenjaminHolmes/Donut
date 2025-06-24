@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 
@@ -23,7 +24,22 @@ namespace Donut
             char[,] canvas = new char[height, width];
             Console.CursorVisible = false;
 
-            while (true)
+            static int GetBrightnessIndex(double x, double y, double z, double theta, double phi, string brightnessMap)
+            {
+                double lightX = 1/Math.Sqrt(3) ;
+                double lightY = 1 / Math.Sqrt(3);
+                double lightZ = -1 / Math.Sqrt(3);
+                double normalX = Math.Cos(theta)*Math.Cos(phi);
+                double normalY = Math.Cos(theta) * Math.Sin(phi);
+                double normalZ =  Math.Sin(theta);
+
+                double brightness = ((normalX * lightX) + (normalY * lightY) + (normalZ * lightZ));
+                brightness = Math.Max(0, brightness);
+                int index = (int)(brightness * (brightnessMap.Length - 1));
+                return index;
+            }
+
+            while(true)
             {
                 double cosA = Math.Cos(A);
                 double sinA = Math.Sin(A);
@@ -59,7 +75,10 @@ namespace Donut
 
                         if (x_proj >= 0 && x_proj < width && y_proj >= 0 && y_proj < height)
                         {
-                            canvas[y_proj, x_proj] = '.';
+
+                            char pixelType = brightnessMap[GetBrightnessIndex(x2, y2, z2, theta, phi, brightnessMap)];
+                            canvas[y_proj, x_proj] = pixelType;
+
                         }
                     }
                 }
@@ -79,9 +98,8 @@ namespace Donut
                 Console.Write(sb.ToString());
 
                 Thread.Sleep(100);
-
-                A += 0.5;
-                B += 0.5;
+                A += 0.1;
+                B += 0.1;
             }
         }
     }
