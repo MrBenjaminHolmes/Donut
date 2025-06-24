@@ -7,8 +7,8 @@ int height = 30;
 Console.SetWindowSize(width, height + 1);
 Console.SetBufferSize(width, height + 1);
 double K1 = 2.0;
-double r1 = 10;
-double r2 = 5;
+double r1 = 4;
+double r2 = 2;
 
 double thetaSpacing = 0.07;
 double phiSpacing = 0.02;
@@ -32,7 +32,7 @@ while (true)
             double z = r2 * Math.Sin(theta);
 
             int x_proj = (int)((width / 2) + K1 * x);
-            int y_proj = (int)((height / 2) - K1 * y);
+            int y_proj = (int)(((height / 2) - K1 * y)/2);
 
             if (x_proj >= 0 && x_proj < width && y_proj >= 0 && y_proj < height)
             {
@@ -51,7 +51,7 @@ while (true)
             sb.Append(canvas[y, x]);
 
         if (y < height - 1)
-            sb.Append('\n'); // Don't add \n after the last line
+            sb.Append('\n'); 
     }
     Console.Write(sb.ToString());
 
