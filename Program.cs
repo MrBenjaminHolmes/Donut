@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Text;
-using System.Threading;
+
 
 namespace Donut
 {
@@ -12,10 +11,9 @@ namespace Donut
             int width = Console.WindowWidth;
             int height = Console.WindowHeight;
             double K1 = 2.0;
-            double r1 = 8;
-            double r2 = 4;
+            double r1 = 9;
+            double r2 = 4.5;
             string brightnessMap = ".,-~:;=!*#$@";
-
             double thetaSpacing = 0.07;
             double phiSpacing = 0.02;
             double A = 0;
@@ -35,7 +33,7 @@ namespace Donut
 
                 double brightness = ((normalX * lightX) + (normalY * lightY) + (normalZ * lightZ));
                 brightness = Math.Max(0, brightness);
-                int index = (int)(brightness * (brightnessMap.Length - 1));
+                int index = (int)(brightness * (brightnessMap.Length));
                 return index;
             }
 
