@@ -10,6 +10,7 @@ double r2 = 4;
 
 double thetaSpacing = 0.07;
 double phiSpacing = 0.02;
+double A = 0;
 
 char[,] canvas = new char[height, width];
 Console.CursorVisible = false;
@@ -28,6 +29,9 @@ while (true)
             double x = (r1 + r2 * Math.Cos(theta)) * Math.Cos(phi);
             double y = (r1 + r2 * Math.Cos(theta)) * Math.Sin(phi);
             double z = r2 * Math.Sin(theta);
+
+            y = (y*Math.Cos(A)) - (z*Math.Sin(A));
+            z = (y * Math.Sin(A)) - (z * Math.Cos(A));
 
             int x_proj = (int)((width / 2) + K1 * x);
             int y_proj = (int)((height / 2) - K1 * y * 0.5);
@@ -49,10 +53,14 @@ while (true)
             sb.Append(canvas[y, x]);
 
         if (y < height - 1)
-            sb.Append('\n'); 
+            sb.Append('\n');
     }
     Console.Write(sb.ToString());
 
     Thread.Sleep(100);
-
+    A += 00.5;
+    if (A > Math.Tau)
+    {
+        A = 0;
+    }
 }
